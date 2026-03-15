@@ -76,6 +76,17 @@
         #buscador::placeholder { color: #888; }
 
         @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* --- BARRA HORIZONTAL DE PROMOCIONES --- */
+#promo-section { display: none; margin-bottom: 30px; }
+.promo-title { color: #ff00c8; font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,0,200,0.4); letter-spacing: 2px;}
+.promo-slider { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 10px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.promo-slider::-webkit-scrollbar { display: none; } /* Oculta la barra fea en celulares */
+.promo-card { flex: 0 0 160px; scroll-snap-align: start; background: rgba(255,0,200,0.05); border: 1px solid #ff00c8; border-radius: 15px; padding: 15px; text-align: center; position: relative; }
+.promo-badge { position: absolute; top: -10px; right: -10px; background: #ff00c8; color: white; font-size: 0.7rem; font-weight: bold; padding: 4px 8px; border-radius: 10px; transform: rotate(10deg); box-shadow: 0 0 10px #ff00c8; }
+.promo-card img { width: 100%; height: 90px; object-fit: contain; margin-bottom: 10px; }
+.promo-card h4 { font-size: 0.85rem; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.promo-card p { font-size: 1.1rem; font-weight: bold; color: white; margin-bottom: 10px; }
+.promo-card button { background: #ff00c8; color: white; border: none; padding: 5px 15px; border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; font-size: 0.75rem; }
     </style>
 </head>
 <body>
@@ -124,20 +135,35 @@
             <div class="hub-card" style="background-image:url('https://images.unsplash.com/photo-1507457379470-08b800bebc67?q=80&w=600')" onclick="openCategory('ps4')"><span>PS4</span></div>
             <div class="hub-card" style="background-image:url('https://images.unsplash.com/photo-1621259182978-fbf93132d53d?q=80&w=600')" onclick="openCategory('xbox')"><span>XBOX</span></div>
             <div class="hub-card" style="background-image:url('https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?q=80&w=600')" onclick="openCategory('switch')"><span>SWITCH</span></div>
+            <div class="hub-card" style="background-image:url('https://i.postimg.cc/HsLWFfr1/ps3.jpg')" onclick="openCategory('ps3')"><span>PS3 Solo fisicos</span></div>
             <div class="hub-card" style="background-image:url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600'); border-color: var(--brand-green);" onclick="openCategory('fisico')"><span>📦 FÍSICOS Y CONSOLA</span></div>
             <div class="hub-card" style="background-image:url('https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=600'); border-color: #ff7300;" onclick="openCategory('streaming')"><span>🍿 COMBOS STREAMING</span></div>
             <div class="hub-card" style="border: 2px solid var(--brand-blue); background: rgba(0, 240, 255, 0.05);" onclick="openTerms()"><span>📍 TIENDA Y ENVÍOS</span></div>
             <div class="hub-card" style="border: 2px solid var(--brand-green); background: rgba(57, 255, 20, 0.05);" onclick="checkCommunity()"><span>⭐ COMUNIDAD</span></div>
             <div class="hub-card" style="border: 2px solid #ff00c8; background: rgba(255, 0, 200, 0.05);" onclick="openPayments()"><span>💳 MÉTODOS DE PAGO</span></div>
+            
         </div>
     </main>
 
     <section id="category-view">
-        <div class="search-container">
-            <input type="text" id="buscador" placeholder="🔍 Buscar juego, combo o accesorio..." onkeyup="filtrarJuegos()">
-        </div>
+        
+        <h2 id="cat-title" style="color: var(--brand-green); font-family: var(--font-title); font-size: 2rem; margin-bottom: 20px;"></h2>
+        
         <div id="featured-display" style="margin-bottom: 40px;"></div>
-        <div class="grid" id="grid-container"></div>
+        
+        <div id="promo-section">
+            <h3 class="promo-title">🔥 OFERTAS RELÁMPAGO</h3>
+            <div id="promo-slider" class="promo-slider"></div>
+        </div>
+
+        <div class="controls" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <input type="text" id="buscador" placeholder="Buscar juego..." onkeyup="filtrarJuegos()" ...>
+            </div>
+
+        <div id="grid-container" class="grid-container"></div>
+
+    </section>
+
     </section>
 
         <section id="terms-view">
@@ -173,7 +199,7 @@
                 <ul style="list-style: none; padding: 0; margin-bottom: 25px; line-height: 2; color: #ccc;">
                     <li>🟣 <b>Nequi:</b> 3103750355</li>
                     <li>🔴 <b>Daviplata:</b> 3103750355</li>
-                    <li>🟡 <b>Bancolombia:</b> Ahorros # (Pon tu número aquí)</li>
+                    <li>🟡 <b>Contactos</b> 310 3750355</li> <li>3103750355</li>
                 </ul>
 
                 <h3 style="color: var(--brand-green); margin-bottom: 15px; font-family: var(--font-title); font-size: 1rem;">💵 PAGO EN EFECTIVO</h3>
