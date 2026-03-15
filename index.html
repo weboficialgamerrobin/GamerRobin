@@ -286,13 +286,50 @@
             document.getElementById('btn-back').style.display = 'block'; 
             window.scrollTo(0,0);
         }
-        function openCategory(consola) {
+       function openCategory(consola) {
             document.getElementById('buscador').value = ''; 
             hideAll(); document.getElementById('category-view').style.display = 'block';
             document.getElementById('btn-back').style.display = 'block';
-            renderGrid(consola); renderFeatured(consola);
+            
+            // 1. Renderizar destacados
+            renderFeatured(consola);
+
+            // 2. LA MAGIA DE LAS PROMOS
+            const promoSection = document.getElementById('promo-section');
+            const promoSlider = document.getElementById('promo-slider');
+            promoSlider.innerHTML = ""; 
+            
+            let promos = fullInventory.filter(i => i.Categoria && i.Categoria.toLowerCase().trim() === `promo-${consola}`);
+            
+            if (promos.length > 0) {
+                promoSection.style.display = 'block';
+                promos.forEach(p => {
+                    let safeTitle = p.Titulo.replace(/'/g, "\\'").replace(/"/g, '\\"');
+                    let precio = p.PrecioPrincipal || "";
+                    let numDestino = (consola === 'fisico') ? wspSoporte : wspVentas;
+                    let txtBoton = (consola === 'fisico') ? "PEDIR 📦" : "LLEVAR 🔥";
+                    let msgWA = `¡Hola Gamer Robin! 👋\nMe interesa la PROMO de *${safeTitle}*\n💰 Valor: ${precio}`;
+                    let linkWA = `https://wa.me/${numDestino}?text=${encodeURIComponent(msgWA)}`;
+                    
+                    promoSlider.innerHTML += `
+                    <div class="promo-card">
+                        <div class="promo-badge">-PROMO-</div>
+                        <img src="${p.Imagen}">
+                        <h4>${p.Titulo}</h4>
+                        <p>${precio}</p>
+                        <button onclick="window.open('${linkWA}', '_blank')">${txtBoton}</button>
+                    </div>`;
+                });
+            } else {
+                promoSection.style.display = 'none';
+            }
+
+            // 3. Renderizar la cuadrícula normal de juegos
+            renderGrid(consola); 
+            
             window.scrollTo(0,0);
         }
+        
 
         // --- MAGIA DEL RENDERIZADO CON SELECTOR DE CUENTAS ---
         function renderGrid(consola) {
@@ -372,7 +409,7 @@
                 <div style="background:rgba(57, 255, 20, 0.05); border:1px solid var(--brand-green); border-radius:25px; display:flex; align-items:center; overflow:hidden; backdrop-filter:blur(10px);">
                     <img src="${data.Imagen}" style="width:140px; padding:20px; object-fit:contain;">
                     <div style="padding:20px; width: 100%;">
-                        <h2 style="font-family:var(--font-title); font-size:0.75rem; color:var(--brand-green); margin-bottom:5px;">OFERTA DESTACADA</h2>
+                        <h2 style="font-family:var(--font-title); font-size:0.75rem; color:var(--brand-green); margin-bottom:5px;">juego destacado</h2>
                         <h3 style="font-size:1.4rem; margin-bottom:10px;">${data.Titulo}</h3>
                         ${selectHTML}
                         <button onclick="comprarItem('${safeTitle}', '${consola}', 'sel-feat', '${pPri}', '${numDestinoFeat}')" class="btn-comprar" style="width:fit-content; padding:10px 30px;">${txtBotonFeat}</button>
