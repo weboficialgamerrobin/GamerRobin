@@ -145,10 +145,11 @@
         </div>
     </main>
 
-    <section id="category-view">
+        <section id="category-view">
         
         <h2 id="cat-title" style="color: var(--brand-green); font-family: var(--font-title); font-size: 2rem; margin-bottom: 20px;"></h2>
         
+        <div id="cat-message" style="text-align: center; margin-bottom: 25px; display: none;"></div>
         <div id="featured-display" style="margin-bottom: 40px;"></div>
         
         <div id="promo-section">
@@ -291,10 +292,23 @@
             hideAll(); document.getElementById('category-view').style.display = 'block';
             document.getElementById('btn-back').style.display = 'block';
             
+            // Poner el título (PS4, SWITCH, etc.)
+            let tituloConsola = (consola === 'fisico') ? "FÍSICOS" : consola.toUpperCase();
+            document.getElementById('cat-title').innerText = tituloConsola;
+
+            // 🌟 NUEVO: EL LETRERO DE LA PROMO SWITCH 🌟
+            const catMessage = document.getElementById('cat-message');
+            if (consola === 'switch') {
+                catMessage.innerHTML = `<div style="background: linear-gradient(90deg, #e60012, #00f0ff); color: white; padding: 12px; border-radius: 12px; font-weight: bold; font-family: var(--font-title); letter-spacing: 1px; border: 1px solid white; box-shadow: 0 0 20px rgba(230,0,18,0.5);">🎁 PROMO: COMPRA 1 JUEGO Y CONSIGUE 3 ALEATORIOS 🎁</div>`;
+                catMessage.style.display = 'block';
+            } else {
+                catMessage.style.display = 'none'; // Se esconde en las demás consolas
+            }
+
             // 1. Renderizar destacados
             renderFeatured(consola);
 
-            // 2. LA MAGIA DE LAS PROMOS
+            // 2. LA MAGIA DE LAS PROMOS HORIZONTALES
             const promoSection = document.getElementById('promo-section');
             const promoSlider = document.getElementById('promo-slider');
             promoSlider.innerHTML = ""; 
